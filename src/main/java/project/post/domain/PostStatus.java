@@ -1,7 +1,7 @@
 package project.post.domain;
 
-public enum postStatus {
+public enum PostStatus {
     CREATE, // 생성
     DELETE, // 삭제
-    RECTIFY // 수정
+    MODIFY // 수정
 }

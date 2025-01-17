@@ -23,7 +23,7 @@ public class Post {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Enumerated
-    private postStatus status;
+    @Enumerated(EnumType.STRING)
+    private PostStatus status;
     private LocalDateTime postDate;
 }
