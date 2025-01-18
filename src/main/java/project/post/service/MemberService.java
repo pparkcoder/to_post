@@ -29,7 +29,7 @@ public class MemberService {
      * 회원 중복 조회
      */
     private void validMember(Member member){
-        int result = memberRepository.findByName(member.getName());
+        int result = memberRepository.findByEmail(member.getEmail());
         if(result > 0){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }

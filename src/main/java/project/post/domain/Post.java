@@ -26,4 +26,11 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private PostStatus status;
     private LocalDateTime postDate;
+
+    public void update(String title, String content, PostStatus status, LocalDateTime postDate){
+        this.title = title;
+        this.content = content;
+        this.status = status;
+        this.postDate = postDate;
+    }
 }

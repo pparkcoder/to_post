@@ -17,9 +17,9 @@ public class MemberRepository {
         em.persist(member);
     }
 
-    public int findByName(String memberName){
-        return em.createQuery("select m from Member m where m.name = :name", Member.class)
-                .setParameter("name",memberName)
+    public int findByEmail(String memberEmail){
+        return em.createQuery("select m from Member m where m.email = :email", Member.class)
+                .setParameter("email",memberEmail)
                 .getResultList()
                 .size();
     }

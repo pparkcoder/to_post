@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.post.domain.Post;
+import project.post.domain.PostStatus;
+import project.post.dto.PostDto;
 import project.post.repository.PostRepository;
 
 @Service
@@ -12,6 +14,7 @@ import project.post.repository.PostRepository;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final PostStatus postStatus;
 
     /**
      * 게시글 등록
@@ -29,11 +32,11 @@ public class PostService {
     }
 
     /**
-     * 게시글 수정
+     * 게시글 수정, 삭제
      */
-
-    /**
-     * 게시글 삭제
-     */
-
+    @Transactional
+    public void updatePost(Post post, PostDto postDto){
+        Post findPost = postRepository.findOne(post.getId());
+        findPost.update(postDto.getTitle(), postDto.getContent(), postDto.getPostStatus(), postDto.getPostData());
+    }
 }
