@@ -28,6 +28,7 @@ public class MemberService {
     /**
      * 회원 중복 조회
      */
+
     private void validMember(Member member){
         int result = memberRepository.findByEmail(member.getEmail());
         if(result > 0){

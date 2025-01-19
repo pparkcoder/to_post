@@ -14,11 +14,12 @@ import project.post.repository.PostRepository;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final PostStatus postStatus;
+    //private final PostStatus postStatus;
 
     /**
      * 게시글 등록
      */
+    @Transactional
     public Long savePost(Post post){
         postRepository.savePost(post);
         return post.getId();
