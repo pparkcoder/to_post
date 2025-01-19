@@ -3,9 +3,11 @@ package project.post.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.post.domain.Member;
 import project.post.domain.Post;
 import project.post.domain.PostStatus;
 import project.post.dto.PostDto;
+import project.post.repository.MemberRepository;
 import project.post.repository.PostRepository;
 
 @Service
@@ -13,6 +15,7 @@ import project.post.repository.PostRepository;
 @Transactional(readOnly = true)
 public class PostService {
 
+    private final MemberRepository memberRepository;
     private final PostRepository postRepository;
     //private final PostStatus postStatus;
 
@@ -20,7 +23,14 @@ public class PostService {
      * 게시글 등록
      */
     @Transactional
-    public Long savePost(Post post){
+    public Long savePost(Long memberId, PostDto postDto){
+        Member member = memberRepository.findOne(memberId);
+        Post post = new Post();
+        post.setTitle(postDto.getTitle());
+        post.setContent(postDto.getContent());
+        post.setStatus(postDto.getPostStatus());
+        post.setPostDate(postDto.getPostDate());
+        post.setMember(member);
         postRepository.savePost(post);
         return post.getId();
     }
@@ -38,6 +48,6 @@ public class PostService {
     @Transactional
     public void updatePost(Post post, PostDto postDto){
         Post findPost = postRepository.findOne(post.getId());
-        findPost.update(postDto.getTitle(), postDto.getContent(), postDto.getPostStatus(), postDto.getPostData());
+        findPost.update(postDto.getTitle(), postDto.getContent(), postDto.getPostStatus(), postDto.getPostDate());
     }
 }
