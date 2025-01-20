@@ -43,11 +43,20 @@ public class PostService {
     }
 
     /**
-     * 게시글 수정, 삭제
+     * 게시글 수정
      */
     @Transactional
-    public void updatePost(Post post, PostDto postDto){
-        Post findPost = postRepository.findOne(post.getId());
-        findPost.update(postDto.getTitle(), postDto.getContent(), postDto.getPostStatus(), postDto.getPostDate());
+    public void updatePost(Long postId, PostDto postDto){
+        Post findPost = postRepository.findOne(postId);
+        findPost.update(postDto.getTitle(), postDto.getContent(), PostStatus.MODIFY, postDto.getPostDate());
+    }
+
+    /**
+     * 게시글 삭제
+     */
+    @Transactional
+    public void deletePost(Long postId, PostDto postDto){
+        Post findPost = postRepository.findOne(postId);
+        findPost.update(postDto.getTitle(), postDto.getContent(), PostStatus.DELETE, postDto.getPostDate());
     }
 }

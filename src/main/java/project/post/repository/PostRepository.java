@@ -4,8 +4,10 @@ import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import project.post.domain.Post;
+import project.post.domain.PostStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
