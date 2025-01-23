@@ -30,7 +30,7 @@ class PostServiceTest {
     void 게시글등록(){
         // given
         Long memberId = createMember();
-        PostDto postDto = new PostDto("title","content", PostStatus.CREATE, LocalDateTime.now());
+        PostDto postDto = new PostDto("title","content", LocalDateTime.now());
 
         // when
         Long postId = postService.savePost(memberId, postDto);
@@ -44,11 +44,11 @@ class PostServiceTest {
     void 게시글삭제(){
         // given
         Long memberId = createMember();
-        PostDto postDto = new PostDto("title","content", PostStatus.CREATE, LocalDateTime.now());
+        PostDto postDto = new PostDto("title","content", LocalDateTime.now());
 
         // when
         Long postId = postService.savePost(memberId, postDto);
-        postService.deletePost(postId, postDto);
+        postService.deletePost(postId);
 
         // then;
         Post findPost = postService.findPostById(postId);
@@ -59,7 +59,7 @@ class PostServiceTest {
     void 게시글수정(){
         // given
         Long memberId = createMember();
-        PostDto postDto = new PostDto("title","content", PostStatus.CREATE, LocalDateTime.now());
+        PostDto postDto = new PostDto("title","content", LocalDateTime.now());
 
         // when
         Long postId = postService.savePost(memberId, postDto);

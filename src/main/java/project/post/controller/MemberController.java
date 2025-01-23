@@ -1,5 +1,6 @@
 package project.post.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +24,8 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
-    @PostMapping
-    public String create(MemberForm memberForm){
+    @PostMapping("/members/new")
+    public String create(@Valid MemberForm memberForm){
         Address address = new Address(memberForm.getCity(), memberForm.getZip(), memberForm.getStreet());
         Member member = new Member();
         member.setEmail(memberForm.getEmail());
@@ -34,7 +35,7 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping
+    @GetMapping("/members")
     public String list(Model model){
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);

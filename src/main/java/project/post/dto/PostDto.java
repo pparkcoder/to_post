@@ -12,13 +12,11 @@ import java.time.LocalDateTime;
 public class PostDto {
     String title;
     String content;
-    PostStatus postStatus;
     LocalDateTime postDate;
 
-    public PostDto(String title, String content, PostStatus postStatus, LocalDateTime postDate) {
+    public PostDto(String title, String content, LocalDateTime postDate) {
         this.title = title;
         this.content = content;
-        this.postStatus = postStatus;
         this.postDate= postDate;
     }
 }

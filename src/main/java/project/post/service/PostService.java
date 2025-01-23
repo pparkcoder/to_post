@@ -10,6 +10,8 @@ import project.post.dto.PostDto;
 import project.post.repository.MemberRepository;
 import project.post.repository.PostRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -28,7 +30,7 @@ public class PostService {
         Post post = new Post();
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
-        post.setStatus(postDto.getPostStatus());
+        post.setStatus(PostStatus.CREATE);
         post.setPostDate(postDto.getPostDate());
         post.setMember(member);
         postRepository.savePost(post);
@@ -38,6 +40,10 @@ public class PostService {
     /**
      * 게시글 조회
      */
+    public List<Post> findPost(){
+        return postRepository.findAll();
+    }
+
     public Post findPostById(Long postId){
         return postRepository.findOne(postId);
     }
@@ -55,8 +61,8 @@ public class PostService {
      * 게시글 삭제
      */
     @Transactional
-    public void deletePost(Long postId, PostDto postDto){
+    public void deletePost(Long postId){
         Post findPost = postRepository.findOne(postId);
-        findPost.update(postDto.getTitle(), postDto.getContent(), PostStatus.DELETE, postDto.getPostDate());
+        findPost.update(findPost.getTitle(), findPost.getContent(), PostStatus.DELETE, findPost.getPostDate());
     }
 }
