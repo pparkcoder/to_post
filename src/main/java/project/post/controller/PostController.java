@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.post.domain.Post;
 import project.post.dto.PostDto;
@@ -18,14 +19,18 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/boards/post")
+    @GetMapping("/boards/new")
     public String createFrom(Model model){
         model.addAttribute("postForm", new PostForm());
         return "boards/createPostForm";
     }
 
-    @PostMapping("/boards/post")
-    public String create(@Valid PostForm postForm, @RequestParam("memberId") Long memberId){
+    @PostMapping("/boards/new")
+    public String create(@Valid PostForm postForm, BindingResult result, @RequestParam("memberId") Long memberId){
+        if(result.hasErrors()){
+            return "boards/createPostForm";
+        }
+
         PostDto postDto = new PostDto(postForm.getTitle(), postForm.getTitle(), LocalDateTime.now());
         postService.savePost(memberId, postDto);
         return "redirect:/";

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import project.post.domain.Post;
+import project.post.domain.PostStatus;
 
 import java.util.List;
 
@@ -18,7 +19,8 @@ public class PostRepository {
     }
 
     public List<Post> findAll(){
-        return em.createQuery("select p from Post p", Post.class)
+        return em.createQuery("select p from Post p where p.status <> :postStatus", Post.class)
+                .setParameter("postStatus", PostStatus.DELETE)
                 .getResultList();
     }
 
