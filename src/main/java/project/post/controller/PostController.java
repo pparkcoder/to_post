@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.post.domain.Post;
-import project.post.domain.PostStatus;
 import project.post.dto.PostDto;
 import project.post.service.PostService;
 
