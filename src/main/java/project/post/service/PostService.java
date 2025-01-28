@@ -10,6 +10,7 @@ import project.post.dto.PostDto;
 import project.post.repository.MemberRepository;
 import project.post.repository.PostRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -54,7 +55,7 @@ public class PostService {
     @Transactional
     public void updatePost(Long postId, PostDto postDto){
         Post findPost = postRepository.findOne(postId);
-        findPost.update(postDto.getTitle(), postDto.getContent(), PostStatus.MODIFY, postDto.getPostDate());
+        findPost.update(postDto.getTitle(), postDto.getContent(), PostStatus.MODIFY, LocalDateTime.now());
     }
 
     /**
@@ -63,6 +64,6 @@ public class PostService {
     @Transactional
     public void deletePost(Long postId){
         Post findPost = postRepository.findOne(postId);
-        findPost.update(findPost.getTitle(), findPost.getContent(), PostStatus.DELETE, findPost.getPostDate());
+        findPost.update(findPost.getTitle(), findPost.getContent(), PostStatus.DELETE, LocalDateTime.now());
     }
 }

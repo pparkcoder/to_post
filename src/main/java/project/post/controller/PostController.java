@@ -75,6 +75,7 @@ public class PostController {
     public String detail(@PathVariable("postId") Long postId, Model model){
         Post findPost = postService.findPostById(postId);
         PostForm postForm = new PostForm();
+        postForm.setId(findPost.getId());
         postForm.setTitle(findPost.getTitle());
         postForm.setContent(findPost.getContent());
 
