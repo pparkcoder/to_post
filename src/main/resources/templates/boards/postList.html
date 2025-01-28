@@ -5,11 +5,24 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
+        <form th:object="${postForm}" class="form-inline">
+            <div class="form-group mb-2">
+                <input type="text" th:field="*{title}" class="form-control" placeholder="제목"/>
+            </div>
+            <div class="form-group mb-2">
+                <input type="text" th:field="*{content}" class="form-control" placeholder="내용"/>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">검색</button>
+        </form>
+    </div>
+
+    <div>
         <table class="table table-striped">
             <thead> <tr>
                 <th>#</th>
                 <th>제목</th>
                 <th>내용</th>
+                <th>작성일시</th>
                 <th></th>
             </tr>
             </thead>
@@ -18,6 +31,7 @@
                 <td th:text="${board.id}"></td>
                 <td th:text="${board.title}"></td>
                 <td th:text="${board.content}"></td>
+                <td th:text="${board.postDate}"></td>
                 <td>
                     <a href="#" th:href="@{/boards/{id}/update (id=${board.id})}" class="btn btn-primary" role="button">수정</a>
                     <a href="#" th:href="'javascript:cancel('+${board.id}+')'" class="btn btn-danger">삭제</a>

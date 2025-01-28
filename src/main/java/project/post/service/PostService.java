@@ -45,6 +45,13 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    /**
+     * 제목, 내용으로 게시글 조회
+     */
+    public List<Post> findPostByCondition(String title, String content){
+        return postRepository.findAllByCriteria(title, content);
+    }
+
     public Post findPostById(Long postId){
         return postRepository.findOne(postId);
     }

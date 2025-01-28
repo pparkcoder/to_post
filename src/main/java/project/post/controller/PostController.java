@@ -36,9 +36,16 @@ public class PostController {
         return "redirect:/";
     }
 
+//    @GetMapping("/boards")
+//    public String list(Model model){
+//        List<Post> boards = postService.findPost();
+//        model.addAttribute("boards", boards);
+//        return "boards/postList";
+//    }
+
     @GetMapping("/boards")
-    public String list(Model model){
-        List<Post> boards = postService.findPost();
+    public String listByCondition(@ModelAttribute("postForm") PostForm postForm, Model model){
+        List<Post> boards = postService.findPostByCondition(postForm.getTitle(), postForm.getContent());
         model.addAttribute("boards", boards);
         return "boards/postList";
     }
