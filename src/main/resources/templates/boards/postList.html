@@ -14,12 +14,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${boards}">
-                <td th:text="${boards.id}"></td>
-                <td th:text="${boards.title}"></td>
-                <td th:text="${boards.content}"></td>
+            <tr th:each="board : ${boards}">
+                <td th:text="${board.id}"></td>
+                <td th:text="${board.title}"></td>
+                <td th:text="${board.content}"></td>
                 <td>
-                    <a href="#" th:href="@{/boards/{id}/update (id=${item.id})}" class="btn btn-primary" role="button">수정</a>
+                    <a href="#" th:href="@{/boards/{id}/update (id=${board.id})}" class="btn btn-primary" role="button">수정</a>
                 </td>
             </tr>
             </tbody>

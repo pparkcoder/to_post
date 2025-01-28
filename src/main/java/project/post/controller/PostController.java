@@ -26,13 +26,13 @@ public class PostController {
     }
 
     @PostMapping("/boards/new")
-    public String create(@Valid PostForm postForm, BindingResult result, @RequestParam("memberId") Long memberId){
+    public String create(@Valid PostForm postForm, BindingResult result){
         if(result.hasErrors()){
             return "boards/createPostForm";
         }
 
-        PostDto postDto = new PostDto(postForm.getTitle(), postForm.getTitle(), LocalDateTime.now());
-        postService.savePost(memberId, postDto);
+        PostDto postDto = new PostDto(postForm.getTitle(), postForm.getContent(), LocalDateTime.now());
+        postService.savePost(1L, postDto);
         return "redirect:/";
     }
 
@@ -56,6 +56,7 @@ public class PostController {
     public String updatePostForm(@PathVariable("postId") Long postId, Model model){
         Post findPost = postService.findPostById(postId);
         PostForm postForm = new PostForm();
+        postForm.setId(findPost.getId());
         postForm.setTitle(findPost.getTitle());
         postForm.setContent(findPost.getContent());
 

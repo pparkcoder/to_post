@@ -31,7 +31,7 @@ class PostServiceTest {
         // given
         Long memberId = createMember();
         PostDto postDto = new PostDto("title","content", LocalDateTime.now());
-
+        
         // when
         Long postId = postService.savePost(memberId, postDto);
 
