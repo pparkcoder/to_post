@@ -21,7 +21,7 @@
             <thead> <tr>
                 <th>#</th>
                 <th>제목</th>
-                <th>내용</th>
+                <th>작성자</th>
                 <th>작성일시</th>
                 <th></th>
             </tr>
@@ -29,12 +29,14 @@
             <tbody>
             <tr th:each="board : ${boards}">
                 <td th:text="${board.id}"></td>
-                <td th:text="${board.title}"></td>
-                <td th:text="${board.content}"></td>
+                <td>
+                    <a th:text="${board.title}" th:href="@{/boards/{id}/detail (id=${board.id})}"></a>
+                </td>
+                <td th:text="${board.member.id}"></td>
                 <td th:text="${board.postDate}"></td>
                 <td>
-                    <a href="#" th:href="@{/boards/{id}/update (id=${board.id})}" class="btn btn-primary" role="button">수정</a>
-                    <a href="#" th:href="'javascript:cancel('+${board.id}+')'" class="btn btn-danger">삭제</a>
+<!--                    <a href="#" th:href="@{/boards/{id}/update (id=${board.id})}" class="btn btn-primary" role="button">수정</a>-->
+<!--                    <a href="#" th:href="'javascript:cancel('+${board.id}+')'" class="btn btn-danger">삭제</a>-->
                 </td>
             </tr>
             </tbody>

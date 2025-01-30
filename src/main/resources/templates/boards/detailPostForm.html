@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form th:object="${postForm}" class="form-inline">
+        <div class="form-group">
+            <label th:for="name">제목</label>
+            <input type="text" th:field="*{title}" class="form-control" readonly>
+        </div>
+        <div class="form-group">
+            <label th:for="price">내용</label>
+            <textarea cols="150" rows="10" th:field="*{content}" class="form-control" readonly/>
+            </textarea>
+        </div>
+        <a href="#" th:href="@{/boards/{id}/update (id=${postForm.id})}" class="btn btn-primary" role="button">수정</a>
+        <a href="#" th:href="'javascript:cancel('+${postForm.id}+')'" class="btn btn-danger">삭제</a>
+    </form>
+    <br/>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script>
+    function cancel(id) {
+        if(!confirm("삭제하시겠습니까?")) return;
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/boards/" + id + "/delete");
+        document.body.appendChild(form);
+        form.submit();
+    } </script>
+</html>

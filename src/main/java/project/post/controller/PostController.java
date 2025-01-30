@@ -82,11 +82,11 @@ public class PostController {
     public String detail(@PathVariable("postId") Long postId, Model model){
         Post findPost = postService.findPostById(postId);
         PostForm postForm = new PostForm();
-        postForm.setId(findPost.getId());
+        postForm.setId(postId);
         postForm.setTitle(findPost.getTitle());
         postForm.setContent(findPost.getContent());
 
         model.addAttribute("postForm", postForm);
-        return "boards/detail";
+        return "boards/detailPostForm";
     }
 }
