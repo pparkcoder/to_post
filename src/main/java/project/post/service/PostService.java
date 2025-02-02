@@ -1,6 +1,7 @@
 package project.post.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.post.domain.Member;
@@ -20,7 +21,8 @@ public class PostService {
 
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
-    //private final PostStatus postStatus;
+    private static final int BLOCK_PAGE_NUM_COUNT = 5; // 블럭에 보여지는 페이지의 수
+    private static final int PAGE_POST_COUNT = 5; // 페이지당 보여지는 게시글 수
 
     /**
      * 게시글 등록
@@ -48,8 +50,11 @@ public class PostService {
     /**
      * 제목, 내용으로 게시글 조회
      */
-    public List<Post> findPostByCondition(String title, String content){
-        return postRepository.findAllByCriteria(title, content);
+    public List<Post> findPostByCondition(String title, String content, int pageNum){
+        int realPageNum = pageNum - 1;
+        int offset = PAGE_POST_COUNT * realPageNum;
+        int limit = offset + PAGE_POST_COUNT - 1;
+        return postRepository.findAllByCriteria(title, content, offset, limit);
     }
 
     public Post findPostById(Long postId){
@@ -72,5 +77,12 @@ public class PostService {
     public void deletePost(Long postId){
         Post findPost = postRepository.findOne(postId);
         findPost.update(findPost.getTitle(), findPost.getContent(), PostStatus.DELETE, LocalDateTime.now());
+    }
+
+    /**
+     * 전체 페이지 계산
+     */
+    public Integer findMaxPageNum(int totalSize){
+        return (int)Math.ceil(totalSize/PAGE_POST_COUNT);
     }
 }

@@ -35,7 +35,7 @@ public class PostRepository {
         return em.find(Post.class, postId);
     }
 
-    public List<Post> findAllByCriteria(String title, String content){
+    public List<Post> findAllByCriteria(String title, String content, int offset, int limit){
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Post> cq = cb.createQuery(Post.class);
         Root<Post> p = cq.from(Post.class);
@@ -58,7 +58,7 @@ public class PostRepository {
         criteria.add(basicCondition);
 
         cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
-        TypedQuery<Post> query = em.createQuery(cq).setMaxResults(1000);
+        TypedQuery<Post> query = em.createQuery(cq).setFirstResult(offset).setMaxResults(limit+1);
         return query.getResultList();
     }
 }

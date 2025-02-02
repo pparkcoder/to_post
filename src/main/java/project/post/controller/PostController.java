@@ -44,9 +44,17 @@ public class PostController {
 //    }
 
     @GetMapping("/boards")
-    public String listByCondition(@ModelAttribute("postForm") PostForm postForm, Model model){
-        List<Post> boards = postService.findPostByCondition(postForm.getTitle(), postForm.getContent());
+    public String listByCondition(@ModelAttribute("postForm") PostForm postForm, Model model, @RequestParam(value = "page", defaultValue = "1") int pageNum){
+        List<Post> boards = postService.findPostByCondition(postForm.getTitle(), postForm.getContent(), pageNum);
+        Integer startPage = 1;
+        Integer endPage = Math.max(2,postService.findMaxPageNum(boards.size()));
+        Integer[] pageList = new Integer[endPage + 1];
+        for(int i = startPage; i <= endPage; ++i){
+            pageList[i-0] = i;
+        }
         model.addAttribute("boards", boards);
+        model.addAttribute("nowPage", pageNum);
+        model.addAttribute("pageList", pageList);
         return "boards/postList";
     }
 

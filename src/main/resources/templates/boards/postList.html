@@ -42,6 +42,12 @@
             </tbody>
         </table>
     </div>
+    <div>
+        <span th:each="pageNum : ${pageList}" th:inline="text">
+            <a th:if="${pageNum != nowPage}" th:href="@{'/boards?page='+${pageNum}}">[[${pageNum}]]</a>
+            <strong th:if="${pageNum == nowPage}" th:text="${pageNum}" style="color:red"></strong>
+        </span>
+    </div>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
