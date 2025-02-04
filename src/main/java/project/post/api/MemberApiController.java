@@ -5,11 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.message.ReusableMessage;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.post.domain.Address;
 import project.post.domain.Member;
 import project.post.service.MemberService;
@@ -23,6 +19,9 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
+    /**
+     * 회원 조회
+     */
     @GetMapping("/api/members")
     public Result members() {
         List<Member> findMembers = memberService.findMembers();
@@ -33,6 +32,9 @@ public class MemberApiController {
         return new Result(collect);
     }
 
+    /**
+     * 회원 등록
+     */
     @PostMapping("/api/members")
     public CreateMemberResponse saveMember(@RequestBody @Valid CreateMemberRequest request){
         Member member = new Member();
@@ -41,6 +43,19 @@ public class MemberApiController {
 
         Long memberId = memberService.join(member);
         return new CreateMemberResponse(memberId);
+    }
+
+    /**
+     * 회원 정보 수정
+     */
+    @PutMapping("/api/members/{id}")
+    public UpdateMemberResponse updateMember(
+            @PathVariable("id") Long id,
+            @RequestBody @Valid UpdateMemberRequest request){
+        memberService.update(id, request.getEmail());
+        Member findMember = memberService.findOne(id);
+        return new UpdateMemberResponse(findMember.getId(), findMember.getEmail());
+
     }
 
     @Data
@@ -66,13 +81,21 @@ public class MemberApiController {
     }
 
     @Data
+    @AllArgsConstructor
     static class CreateMemberResponse{
         private Long id;
-
-        public CreateMemberResponse(Long id) {
-            this.id = id;
-        }
     }
 
+    @Data
+    static class UpdateMemberRequest{
+        @NotEmpty
+        private String email;
+    }
 
+    @Data
+    @AllArgsConstructor
+    static class UpdateMemberResponse{
+        private Long id;
+        private String email;
+    }
 }
