@@ -55,5 +55,4 @@ public class MemberService {
         Member member = memberRepository.findOne(id);
         member.setEmail(email);
     }
-
 }
