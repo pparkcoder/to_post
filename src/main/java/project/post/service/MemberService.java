@@ -30,8 +30,8 @@ public class MemberService {
      */
 
     private void validMember(Member member){
-        int result = memberRepository.findByEmail(member.getEmail());
-        if(result > 0){
+        List<Member> findMembers = memberRepository.findByEmail(member.getEmail());
+        if(findMembers.size() > 0){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }

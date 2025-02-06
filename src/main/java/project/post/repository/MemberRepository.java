@@ -17,12 +17,11 @@ public class MemberRepository {
         em.persist(member);
     }
 
-    public int findByEmail(String memberEmail){
+    public List<Member> findByEmail(String memberEmail){
         return em.createQuery("select m from Member m"
                 +" where m.email = :email", Member.class)
                 .setParameter("email",memberEmail)
-                .getResultList()
-                .size();
+                .getResultList();
     }
 
     public List<Member> findAll(){

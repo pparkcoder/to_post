@@ -19,4 +19,7 @@ public class Member {
 
     @Embedded
     private Address address;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import project.post.domain.Address;
 import project.post.domain.Member;
+import project.post.domain.Role;
 import project.post.service.MemberService;
 
 import java.util.List;
@@ -37,6 +38,7 @@ public class MemberController {
         member.setEmail(memberForm.getEmail());
         member.setPassword(memberForm.getPassword());
         member.setAddress(address);
+        member.setRole(Role.USER);
 
         memberService.join(member);
         return "redirect:/";

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @GetMapping("/")
-    public String hone(){
+    public String home(){
         log.info("home controller 진입");
-        return "home";
+        return "main";
     }
 }
