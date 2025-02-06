@@ -18,8 +18,7 @@ public class LoginService {
      */
     public Member login(String email, String password){
         List<Member> findMember = memberRepository.findByEmail(email);
-
-        if(findMember.size() == 0 || findMember.get(0).getPassword() != password){
+        if(findMember.size() == 0 || !password.equals(findMember.get(0).getPassword())){
             return null;
         }
 

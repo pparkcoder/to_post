@@ -1,5 +1,8 @@
 package project.post.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,11 +23,12 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginForm(Model model){
+        model.addAttribute("loginForm", new LoginForm());
         return "login/loginForm";
     }
 
     @PostMapping("/login")
-    public String login(@Valid LoginForm loginForm, BindingResult result){
+    public String login(@Valid LoginForm loginForm, BindingResult result, HttpServletResponse response){
 
         if(result.hasErrors()){
             return "login/loginForm";
@@ -37,6 +41,8 @@ public class LoginController {
             return "login/loginForm";
         }
 
-        return "home";
+        Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
+        response.addCookie(idCookie);
+        return "redirect:/";
     }
 }

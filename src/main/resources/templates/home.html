@@ -7,10 +7,10 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <div class="jumbotron"> <h1>HELLO SHOP</h1>
+    <div class="jumbotron">
+        <h4 class="mb-3" th:text="|로그인: ${member.email}|">로그인 사용자 이메일</h4>
         <p class="lead">회원 기능</p>
         <p>
-            <a class="btn btn-lg btn-secondary" href="/members/new">회원 가입</a>
             <a class="btn btn-lg btn-secondary" href="/members">회원 목록</a>
         </p>
         <p class="lead">게시글 기능</p>
