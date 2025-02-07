@@ -13,6 +13,10 @@
         <p>
             <a class="btn btn-lg btn-secondary" href="/members">회원 목록</a>
         </p>
+        <p class="lead">로그아웃 기능</p>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-primary">로그아웃</button>
+        </form>
         <p class="lead">게시글 기능</p>
         <p>
             <a class="btn btn-lg btn-info" href="/boards/new">게시글 등록</a>
