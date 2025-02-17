@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import project.post.domain.Member;
 import project.post.service.LoginService;
+import project.post.session.SessionManager;
 
 import javax.naming.Binding;
 
@@ -20,6 +21,7 @@ import javax.naming.Binding;
 public class LoginController {
 
     private final LoginService loginService;
+    private final SessionManager sessionManager;
 
     @GetMapping("/login")
     public String loginForm(Model model){
@@ -41,14 +43,14 @@ public class LoginController {
             return "login/loginForm";
         }
 
-        Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
-        response.addCookie(idCookie);
+        sessionManager.createSession(loginMember, response);
         return "redirect:/";
     }
 
     @PostMapping("/logout")
-    public String logout(HttpServletResponse response){
-        expireCookie(response, "memberId");
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        //expireCookie(response, "memberId");
+        sessionManager.expire(request);
         return "redirect:/";
     }
 

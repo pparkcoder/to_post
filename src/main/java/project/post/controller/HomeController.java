@@ -1,13 +1,14 @@
 package project.post.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import project.post.domain.Member;
 import project.post.repository.MemberRepository;
+import project.post.session.SessionManager;
 
 @Controller
 @Slf4j
@@ -15,6 +16,7 @@ import project.post.repository.MemberRepository;
 public class HomeController {
 
     private final MemberRepository memberRepository;
+    private final SessionManager sessionManager;
 
 //    @GetMapping("/")
 //    public String home(){
@@ -23,13 +25,9 @@ public class HomeController {
 //    }
 
     @GetMapping("/")
-    public String homeLogin(@CookieValue(name = "memberId", required = false) Long memberId, Model model){
+    public String homeLogin(HttpServletRequest request, Model model){
+        Member loginMember = (Member)sessionManager.getSession(request);
 
-        if(memberId == null){
-            return "main";
-        }
-
-        Member loginMember = memberRepository.findOne(memberId);
         if(loginMember == null){
             return "main";
         }
