@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import project.post.domain.Member;
 import project.post.repository.MemberRepository;
 import project.post.session.SessionConst;
-import project.post.session.SessionManager;
 
 @Controller
 @Slf4j
@@ -19,13 +18,6 @@ import project.post.session.SessionManager;
 public class HomeController {
 
     private final MemberRepository memberRepository;
-    private final SessionManager sessionManager;
-
-//    @GetMapping("/")
-//    public String home(){
-//        log.info("home controller 진입");
-//        return "main";
-//    }
 
     @GetMapping("/")
     public String homeLogin(

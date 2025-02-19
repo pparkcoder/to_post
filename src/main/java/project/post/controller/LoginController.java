@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import project.post.domain.Member;
 import project.post.service.LoginService;
 import project.post.session.SessionConst;
@@ -32,7 +33,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid LoginForm loginForm, BindingResult result, HttpServletRequest request){
+    public String login(@Valid LoginForm loginForm, BindingResult result,
+                        @RequestParam(defaultValue = "/") String redirectURL,
+                        HttpServletRequest request){
 
         if(result.hasErrors()){
             return "login/loginForm";
@@ -49,7 +52,7 @@ public class LoginController {
         // 세션이 있으면 세션 반환, 없으면 신규 세션 생성
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-        return "redirect:/";
+        return "redirect:" + redirectURL;
     }
 
     @PostMapping("/logout")
